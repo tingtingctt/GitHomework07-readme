@@ -57,10 +57,21 @@ const questions = [
 ];
 
 function writeToFile(fileName, data) {
+    fs.writeFile(fileName, data, function(err){
+        if (err) {
+            throw err;
+        }
+        console.log("Successfully generated Readme.md");
+    })
 }
 
 function init() {
-
+    inquirer.prompt(questions).then (function (data) {
+        writeToFile("README.md", generateMarkdown(data))
+    });
 }
 
 init();
+
+
+

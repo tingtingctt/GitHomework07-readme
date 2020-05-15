@@ -1,4 +1,20 @@
+const axios = require ("axios");
+
+
 function generateMarkdown(data) {
+  
+  let imgURL = "";
+  let githubEmail = "";
+  
+  const queryUrl = `https://api.github.com/users/${data.username}`;
+  axios.get(queryUrl).then(function(res) {
+    imgURL = res.data.avatar_url;
+    githubEmail = res.data.email;
+    console.log(res);
+    return data, imgURL, githubEmail;
+  }).then(function(data) {
+
+
   return `
 # ${data.title}
 
@@ -7,6 +23,8 @@ function generateMarkdown(data) {
 ## Description
 
 ${data.description}
+
+The deployed application can be found at ${data.url}
 
 ## Table of Contents
 * Title
@@ -40,9 +58,14 @@ To run tests, use command: ${data.tests}
 
 ## Questions
 
-If you have any questions or suggestions, open an issue or contact ${data.username} at ${data.email}
+
+Format: ![profile pic](${imgURL})
+
+If you have any questions or suggestions, open an issue or contact my github email at ${githubEmail}
+or direct email at ${data.email}
 
 `;
+})
 }
 
 module.exports = generateMarkdown;

@@ -1,6 +1,7 @@
 const fs = require ("fs");
 // const path = require ("path");
 const inquirer = require ("inquirer");
+const axios = require ("axios");
 const generateMarkdown = require ("./utils/generateMarkdown.js");
 
 const questions = [
@@ -67,7 +68,9 @@ function writeToFile(fileName, data) {
 
 function init() {
     inquirer.prompt(questions).then (function (data) {
-        writeToFile("README.md", generateMarkdown(data))
+        writeToFile("README.md", generateMarkdown(data));
+
+
     });
 }
 
@@ -75,3 +78,10 @@ init();
 
 
 
+// const axios = require ("axios");
+// const queryUrl = `https://api.github.com/users/tingtingctt`;
+
+// axios.get(queryUrl).then(function(res) {
+// console.log(res.data.avatar_url);
+// console.log(res.data.email)
+// })

@@ -3,7 +3,9 @@ const fs = require ("fs");
 const inquirer = require ("inquirer");
 const axios = require ("axios");
 const generateMarkdown = require ("./utils/generateMarkdown.js");
+const util = require("util");
 
+// array of questions to pass to inquirer.prompt
 const questions = [
     {
         type: "input",
@@ -57,31 +59,15 @@ const questions = [
     },
 ];
 
-function writeToFile(fileName, data) {
-    fs.writeFile(fileName, data, function(err){
-        if (err) {
-            throw err;
-        }
-        console.log("Successfully generated Readme.md");
-    })
-}
 
+// Moved WriteFile function to generateMarkdown.js
 function init() {
     inquirer.prompt(questions).then (function (data) {
-        writeToFile("README.md", generateMarkdown(data));
-
-
-    });
+        generateMarkdown(data);
+        console.log("Successfully generated Readme.md");
+    })      
 }
 
 init();
 
 
-
-// const axios = require ("axios");
-// const queryUrl = `https://api.github.com/users/tingtingctt`;
-
-// axios.get(queryUrl).then(function(res) {
-// console.log(res.data.avatar_url);
-// console.log(res.data.email)
-// })
